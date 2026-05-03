@@ -127,20 +127,21 @@ export class BatchSearchComponent implements OnInit {
     this.setupSearch();
     this.route.queryParams.subscribe(params => {
       if (params['q']) {
-        this.searchControl.setValue(params['q']);
-        this.search();
+        this.searchControl.setValue(params['q'], { emitEvent: true });
       }
     });
   }
 
   private setupSearch() {
+    console.log("text");
     this.searchControl.valueChanges
       .pipe(
         debounceTime(300),
         distinctUntilChanged()
       )
       .subscribe(() => {
-        if (this.searchControl.value && this.searchControl.value.length >= 2) {
+        if (this.searchControl.value && this.searchControl.value.length >= 1) {
+          
           this.search();
         }
       });
@@ -148,8 +149,8 @@ export class BatchSearchComponent implements OnInit {
 
   search() {
     const query = this.searchControl.value?.trim();
-    if (!query || query.length < 2) {
-      this.toastService.warning('Enter at least 2 characters');
+    if (!query || query.length < 1) {
+      this.toastService.warning('Enter at least 1 characters');
       return;
     }
 
