@@ -26,7 +26,7 @@ import { formatDateTime } from '../../../utils/date.util';
           </div>
         } @else {
           <div class="space-y-3 max-h-96 overflow-y-auto">
-            @for (txn of transactions(); track txn.id) {
+            @for (txn of [...transactions()].reverse(); track txn.id) {
               <div class="p-3 border-l-4 rounded-r-lg border-gray-300 hover:bg-gray-50 transition">
                 <div class="flex justify-between items-start">
                   <div class="flex-1">

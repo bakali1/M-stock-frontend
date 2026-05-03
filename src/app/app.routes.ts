@@ -4,6 +4,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { BatchSearchComponent } from './features/batches/batch-search.component';
 import { BatchDetailPageComponent } from './features/batches/batch-detail-page.component';
 import { StockMovementComponent } from './features/transactions/stock-movement.component';
+import { ProductSearchComponent } from './features/product/product-search.component';
 
 export const routes: Routes = [
   {
@@ -14,7 +15,8 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'batches', component: BatchSearchComponent },
       { path: 'batches/:id', component: BatchDetailPageComponent },
-      { path: 'stock-movement', component: StockMovementComponent }
+      { path: 'stock-movement', component: StockMovementComponent },
+      { path: 'product', component: ProductSearchComponent }
     ]
   }
 ];

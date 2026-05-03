@@ -4,4 +4,5 @@ export interface Product {
   nsnCode: string;
   description: string;
   parLevel: number;
+  active: boolean;
 }
