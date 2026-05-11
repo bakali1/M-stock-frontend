@@ -3,21 +3,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { Transaction } from '../models/transaction.model';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
   private api = inject(ApiService);
-  private auth = inject(AuthService)
   record(transaction: Partial<Transaction>): Observable<Transaction> {
-    const user = this.auth.currentUser();   // call the function
-    if (!user?.id) {
-      throw new Error('User not authenticated or missing id');
-    }
-    const payload = { ...transaction, userId: user.id };
-    return this.api.post<Transaction>('/transactions', payload).pipe(
+    return this.api.post<Transaction>('/transactions', transaction).pipe(
       map(response => response.data),
       catchError(error => {
         // handle or rethrow

@@ -220,13 +220,12 @@ export class StockMovementComponent {
     }
 
     this.submitting.set(true);
-    const payload = {
-      type: this.currentType,
-      batchId: this.selectedBatch()!.id,
-      batchVersion: this.selectedBatch()!.version,
-      quantity: Number(this.form.get('quantity')?.value),
-      reason: this.form.get('reason')?.value || undefined
-    };
+     const payload = {
+       type: this.currentType,
+       batchId: this.selectedBatch()!.id,
+       quantity: Number(this.form.get('quantity')?.value),
+       reason: this.form.get('reason')?.value || undefined
+     };
 
     this.transactionService.record(payload).subscribe({
       next: () => {
@@ -249,4 +248,3 @@ export class StockMovementComponent {
     this.currentType = 'IN';
   }
 }
-
