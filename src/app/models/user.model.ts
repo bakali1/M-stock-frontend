@@ -1,7 +1,9 @@
+export type UserRole = 'ADMIN' | 'PHARMACIAN' | 'VIEWER' | 'CLERK' | 'OFFICER';
+
 export interface User {
   id: number;
   username: string;
   email: string;
-  role: 'ADMIN' | 'PHARMACIAN';
+  role: UserRole;
   active: boolean;
 }

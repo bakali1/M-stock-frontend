@@ -9,7 +9,7 @@ import { ToastContainerComponent } from '../../components/toast/toast-container.
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, SidebarComponent, ToastContainerComponent],
   template: `
-    <div class="flex flex-col h-screen bg-gray-50">
+    <div class="flex flex-col min-h-screen bg-gray-50">
       <app-header></app-header>
       <div class="flex flex-1 overflow-hidden">
         <app-sidebar></app-sidebar>
