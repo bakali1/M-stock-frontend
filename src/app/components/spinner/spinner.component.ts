@@ -7,7 +7,7 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
     <div class="flex items-center justify-center gap-3">
       <div [class]="spinnerClasses"></div>
       @if (label()) {
-        <span class="text-gray-600">{{ label() }}</span>
+        <span class="text-[var(--app-text-secondary)]">{{ label() }}</span>
       }
     </div>
   `,
@@ -18,7 +18,7 @@ export class SpinnerComponent {
   label = input<string | null>(null);
 
   get spinnerClasses(): string {
-    const baseClass = 'border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin';
+    const baseClass = 'border-2 border-[var(--app-border-strong)] border-t-[var(--app-brand)] rounded-full animate-spin';
     
     const sizes: Record<'sm' | 'md' | 'lg', string> = {
       sm: 'w-4 h-4',

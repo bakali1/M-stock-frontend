@@ -7,12 +7,12 @@ import { RecentActivityComponent } from './recent-activity/recent-activity.compo
   standalone: true,
   imports: [ExpirationAlertsComponent, RecentActivityComponent],
   template: `
-    <div class="p-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
+    <div class="p-8 h-[calc(100vh-4rem)]">
+      <h1 class="text-3xl font-bold text-[var(--app-text-primary)] mb-8">Dashboard</h1>
       
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <app-expiration-alerts></app-expiration-alerts>
         <app-recent-activity></app-recent-activity>
+        <app-expiration-alerts></app-expiration-alerts>
       </div>
     </div>
   `,

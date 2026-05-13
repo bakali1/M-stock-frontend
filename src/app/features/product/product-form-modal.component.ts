@@ -18,66 +18,66 @@ import { Product } from '../../models/product.model';
     >
       <form [formGroup]="form" class="space-y-4" (ngSubmit)="submit()">
         <div>
-          <label for="product-name" class="block text-sm font-medium text-gray-700 mb-1">
-            Name <span class="text-red-500">*</span>
+          <label for="product-name" class="block text-sm font-medium text-[var(--app-text-secondary)] mb-1">
+            Name <span class="text-[var(--app-danger)]">*</span>
           </label>
           <input
             id="product-name"
             formControlName="name"
             type="text"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-4 py-2 border border-[var(--app-border-strong)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--app-brand)] bg-[var(--app-surface)] text-[var(--app-text-primary)]"
             [attr.aria-invalid]="nameInvalid()"
             [attr.aria-describedby]="nameInvalid() ? 'name-error' : null"
           />
           @if (nameInvalid()) {
-            <p id="name-error" class="mt-1 text-sm text-red-600" role="alert">Name is required</p>
+            <p id="name-error" class="mt-1 text-sm text-[var(--app-danger)]" role="alert">Name is required</p>
           }
         </div>
 
         <div>
-          <label for="product-nsn" class="block text-sm font-medium text-gray-700 mb-1">
-            NSN Code <span class="text-red-500">*</span>
+          <label for="product-nsn" class="block text-sm font-medium text-[var(--app-text-secondary)] mb-1">
+            NSN Code <span class="text-[var(--app-danger)]">*</span>
           </label>
           <input
             id="product-nsn"
             formControlName="nsnCode"
             type="text"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-4 py-2 border border-[var(--app-border-strong)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--app-brand)] bg-[var(--app-surface)] text-[var(--app-text-primary)]"
             [attr.aria-invalid]="nsnInvalid()"
             [attr.aria-describedby]="nsnInvalid() ? 'nsn-error' : null"
           />
           @if (nsnInvalid()) {
-            <p id="nsn-error" class="mt-1 text-sm text-red-600" role="alert">NSN code is required</p>
+            <p id="nsn-error" class="mt-1 text-sm text-[var(--app-danger)]" role="alert">NSN code is required</p>
           }
         </div>
 
         <div>
-          <label for="product-description" class="block text-sm font-medium text-gray-700 mb-1">
+          <label for="product-description" class="block text-sm font-medium text-[var(--app-text-secondary)] mb-1">
             Description
           </label>
           <textarea
             id="product-description"
             formControlName="description"
             rows="3"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-4 py-2 border border-[var(--app-border-strong)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--app-brand)] bg-[var(--app-surface)] text-[var(--app-text-primary)]"
           ></textarea>
         </div>
 
         <div>
-          <label for="product-par-level" class="block text-sm font-medium text-gray-700 mb-1">
-            Par Level <span class="text-red-500">*</span>
+          <label for="product-par-level" class="block text-sm font-medium text-[var(--app-text-secondary)] mb-1">
+            Par Level <span class="text-[var(--app-danger)]">*</span>
           </label>
           <input
             id="product-par-level"
             formControlName="parLevel"
             type="number"
             min="0"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-4 py-2 border border-[var(--app-border-strong)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--app-brand)] bg-[var(--app-surface)] text-[var(--app-text-primary)]"
             [attr.aria-invalid]="parLevelInvalid()"
             [attr.aria-describedby]="parLevelInvalid() ? 'par-level-error' : null"
           />
           @if (parLevelInvalid()) {
-            <p id="par-level-error" class="mt-1 text-sm text-red-600" role="alert">Par level must be 0 or greater</p>
+            <p id="par-level-error" class="mt-1 text-sm text-[var(--app-danger)]" role="alert">Par level must be 0 or greater</p>
           }
         </div>
 
@@ -86,9 +86,9 @@ import { Product } from '../../models/product.model';
             id="product-active"
             formControlName="active"
             type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            class="h-4 w-4 rounded border-[var(--app-border-strong)] text-[var(--app-brand)] focus:ring-[var(--app-brand)]"
           />
-          <label for="product-active" class="text-sm text-gray-700">Active</label>
+          <label for="product-active" class="text-sm text-[var(--app-text-secondary)]">Active</label>
         </div>
       </form>
     </app-modal>

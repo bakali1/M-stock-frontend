@@ -22,20 +22,20 @@ import { Product } from '../../models/product.model';
     ProductFormModalComponent
   ],
   template: `
-    <div class="p-8">
+    <div class="p-8 h-[calc(100vh-4rem)]">
       <div class="flex items-center justify-between mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Products</h1>
+        <h1 class="text-3xl font-bold text-[var(--app-text-primary)]">Products</h1>
         <app-button (onClick)="openCreate()">Add Product</app-button>
       </div>
 
       <app-card>
-        <div class="p-6 border-b border-gray-200">
+        <div class="p-6 border-b border-[var(--app-border)]">
           <div class="flex gap-3">
             <input
               [formControl]="searchControl"
               type="text"
               placeholder="Search by name or NSN..."
-              class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="flex-1 px-4 py-2 border border-[var(--app-border-strong)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--app-brand)] bg-[var(--app-surface)] text-[var(--app-text-primary)]"
               aria-label="Search products"
             />
             <app-button (onClick)="search()" [loading]="searching()">Search</app-button>
@@ -48,29 +48,29 @@ import { Product } from '../../models/product.model';
               <app-spinner label="Loading products..."></app-spinner>
             </div>
           } @else if (products().length === 0 && searched()) {
-            <div class="text-center py-8 text-gray-500">
+            <div class="text-center py-8 text-[var(--app-text-muted)]">
               <p>No products found</p>
             </div>
           } @else if (products().length > 0) {
             <div class="overflow-x-auto">
               <table class="w-full">
-                <thead class="bg-gray-100 border-b border-gray-200">
+                <thead class="bg-[var(--app-surface-muted)] border-b border-[var(--app-border)]">
                   <tr>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Name</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">NSN Code</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Description</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Par Level</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Status</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">NSN Code</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Description</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Par Level</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Status</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   @for (product of products(); track product.id) {
-                    <tr class="border-b border-gray-200 hover:bg-gray-50">
-                      <td class="px-6 py-3 text-sm text-gray-700">{{ product.name }}</td>
-                      <td class="px-6 py-3 text-sm text-gray-700">{{ product.nsnCode }}</td>
-                      <td class="px-6 py-3 text-sm text-gray-700">{{ product.description || '—' }}</td>
-                      <td class="px-6 py-3 text-sm text-gray-700">{{ product.parLevel }}</td>
+                    <tr class="border-b border-[var(--app-border)] hover:bg-[var(--app-surface-alt)]">
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.name }}</td>
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.nsnCode }}</td>
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.description || '—' }}</td>
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.parLevel }}</td>
                       <td class="px-6 py-3 text-sm">
                         <span [class]="getActiveBadge(product.active)">
                           {{ product.active ? 'Active' : 'Inactive' }}
@@ -80,14 +80,14 @@ import { Product } from '../../models/product.model';
                         <div class="flex gap-2">
                           <button
                             (click)="openEdit(product)"
-                            class="text-blue-600 hover:text-blue-800 font-medium"
+                            class="text-[var(--app-link)] hover:text-[var(--app-link-hover)] font-medium"
                             [attr.aria-label]="'Edit ' + product.name"
                           >
                             Edit
                           </button>
                           <button
                             (click)="confirmDelete(product)"
-                            class="text-red-600 hover:text-red-800 font-medium"
+                            class="text-[var(--app-danger)] hover:text-[var(--app-danger-hover)] font-medium"
                             [attr.aria-label]="'Delete ' + product.name"
                           >
                             Delete
@@ -242,7 +242,7 @@ export class ProductSearchComponent implements OnInit {
 
   getActiveBadge(active: boolean): string {
     return active
-      ? 'bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold'
-      : 'bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-semibold';
+      ? 'bg-[var(--app-success-muted)] text-[var(--app-success-strong)] px-2 py-1 rounded text-xs font-semibold'
+      : 'bg-[var(--app-neutral-muted)] text-[var(--app-neutral-strong)] px-2 py-1 rounded text-xs font-semibold';
   }
 }

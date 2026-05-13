@@ -13,36 +13,36 @@ import { formatDateTime } from '../../../utils/date.util';
   imports: [CommonModule, SpinnerComponent, CardComponent],
   template: `
     <app-card>
-      <div class="p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+      <div class="p-6 h-[calc(100vh-16rem)]">
+        <h3 class="text-lg font-semibold text-[var(--app-text-primary)] mb-4">Recent Activity</h3>
         
         @if (loading()) {
           <div class="flex justify-center py-8">
             <app-spinner label="Loading activity..."></app-spinner>
           </div>
         } @else if (transactions().length === 0) {
-          <div class="text-center py-8 text-gray-500">
+          <div class="text-center py-8 text-[var(--app-text-muted)]">
             <p>No recent activity</p>
           </div>
         } @else {
-          <div class="space-y-3 max-h-96 overflow-y-auto">
+          <div class="space-y-3 max-h-[calc(100vh-22rem)] overflow-y-auto">
             @for (txn of [...transactions()].reverse(); track txn.id) {
-              <div class="p-3 border-l-4 rounded-r-lg border-gray-300 hover:bg-gray-50 transition">
+              <div class="p-3 border-l-4 rounded-r-lg border-[var(--app-border-strong)] hover:bg-[var(--app-surface-alt)] transition">
                 <div class="flex justify-between items-start">
                   <div class="flex-1">
                     <p class="text-sm font-semibold">
                       <span [class]="getTxnBadgeClass(txn.type)">{{ txn.type }}</span>
                     </p>
-                    <p class="text-xs text-gray-600 mt-1">{{ txn.productName }}</p>
-                    <p class="text-xs text-gray-500">Lot: {{ txn.lotNumber }} | Qty: {{ txn.quantity }}</p>
+                    <p class="text-xs text-[var(--app-text-secondary)] mt-1">{{ txn.productName }}</p>
+                    <p class="text-xs text-[var(--app-text-muted)]">Lot: {{ txn.lotNumber }} | Qty: {{ txn.quantity }}</p>
                   </div>
                   <div class="text-right">
-                    <p class="text-sm font-semibold text-gray-900">{{ txn.userName }}</p>
-                    <p class="text-xs text-gray-500">{{ formatDateTime(txn.createdAt) }}</p>
+                    <p class="text-sm font-semibold text-[var(--app-text-primary)]">{{ txn.userName }}</p>
+                    <p class="text-xs text-[var(--app-text-muted)]">{{ formatDateTime(txn.createdAt) }}</p>
                   </div>
                 </div>
                 @if (txn.reason) {
-                  <p class="text-xs text-gray-600 mt-2">{{ txn.reason }}</p>
+                  <p class="text-xs text-[var(--app-text-secondary)] mt-2">{{ txn.reason }}</p>
                 }
               </div>
             }
@@ -82,9 +82,9 @@ export class RecentActivityComponent implements OnInit {
 
   getTxnBadgeClass(type: string): string {
     const classes: Record<string, string> = {
-      IN: 'bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold',
-      OUT: 'bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold',
-      RETURN: 'bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-semibold'
+      IN: 'bg-[var(--app-success-muted)] text-[var(--app-success-strong)] px-2 py-1 rounded text-xs font-semibold',
+      OUT: 'bg-[var(--app-info-muted)] text-[var(--app-info-strong)] px-2 py-1 rounded text-xs font-semibold',
+      RETURN: 'bg-[var(--app-warning-muted)] text-[var(--app-warning-strong)] px-2 py-1 rounded text-xs font-semibold'
     };
     return classes[type] || classes['IN'];
   }

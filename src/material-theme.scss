@@ -1,0 +1,164 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin defines CSS variables used by Angular Material components
+// according to the Material 3 design system.
+
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+}
+
+/* =========================
+   LIGHT THEME
+========================= */
+
+.theme-light {
+  color-scheme: light;
+
+  @include mat.theme((color: (primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+
+  /* Surfaces */
+  --app-surface: var(--mat-sys-surface);
+  --app-surface-alt: #f8fafc;
+  --app-surface-muted: #f1f5f9;
+
+  /* Borders */
+  --app-border: #e5e7eb;
+  --app-border-strong: #cbd5e1;
+
+  /* Text */
+  --app-text-primary: #111827;
+  --app-text-secondary: #4b5563;
+  --app-text-muted: #6b7280;
+
+  /* Hover */
+  --app-hover: #f3f4f6;
+  --app-hover-strong: #e5e7eb;
+
+  /* Links */
+  --app-link: #2563eb;
+  --app-link-hover: #1d4ed8;
+
+  /* Brand */
+  --app-brand: var(--mat-sys-primary);
+  --app-brand-strong: #1e40af;
+  --app-on-brand: #ffffff;
+
+  /* Status */
+  --app-danger: #dc2626;
+  --app-danger-hover: #b91c1c;
+  --app-danger-muted: #fee2e2;
+  --app-danger-strong: #991b1b;
+
+  --app-success-muted: #dcfce7;
+  --app-success-strong: #00C950;
+
+  --app-warning-muted: #ffedd5;
+  --app-warning-strong: #FF6900;
+
+  --app-info-muted: #dbeafe;
+  --app-info-strong: #1e40af;
+
+  --app-neutral-muted: #f3f4f6;
+  --app-neutral-strong: #656b75;
+
+  /* Sidebar */
+  --app-sidebar-active: #eff6ff;
+
+  /* Shadows */
+  --app-shadow-sm:
+    0 1px 2px rgb(0 0 0 / 0.05);
+
+  --app-shadow-md:
+    0 4px 6px rgb(0 0 0 / 0.07);
+
+  --app-shadow-lg:
+    0 10px 15px rgb(0 0 0 / 0.10);
+}
+
+/* =========================
+   DARK THEME
+========================= */
+
+.theme-dark {
+  color-scheme: dark;
+
+  @include mat.theme((color: (primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+        theme-type: dark,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+
+  /* Surfaces */
+  --app-surface: var(--mat-sys-surface);
+  --app-surface-alt: #111827;
+  --app-surface-muted: #1e293b;
+
+  /* Borders */
+  --app-border: #374151;
+  --app-border-strong: #4b5563;
+
+  /* Text */
+  --app-text-primary: #f9fafb;
+  --app-text-secondary: #d1d5db;
+  --app-text-muted: #9ca3af;
+
+  /* Hover */
+  --app-hover: #1f2937;
+  --app-hover-strong: #374151;
+
+  /* Links */
+  --app-link: #60a5fa;
+  --app-link-hover: #93c5fd;
+
+  /* Brand */
+  --app-brand: var(--mat-sys-primary);
+  --app-brand-strong: #93c5fd;
+  --app-on-brand: #0b1120;
+
+  /* Status */
+  --app-danger: #ff4b4b;
+  --app-danger-hover: #fca5a5;
+  --app-danger-muted: #a81f1f;
+  --app-danger-strong: #fecaca;
+
+  --app-success-muted: #0fb343;
+  --app-success-strong: #acf6bb;
+
+  --app-warning-muted: #ba4b26;
+  --app-warning-strong: #f8b789;
+
+  --app-info-muted: #1e3a8a;
+  --app-info-strong: #bfdbfe;
+
+  --app-neutral-muted: #111827;
+  --app-neutral-strong: #e5e7eb;
+
+  /* Sidebar */
+  --app-sidebar-active: #172554;
+
+  /* Shadows */
+  --app-shadow-sm:
+    0 1px 2px rgb(0 0 0 / 0.25);
+
+  --app-shadow-md:
+    0 4px 6px rgb(0 0 0 / 0.30);
+
+  --app-shadow-lg:
+    0 10px 15px rgb(0 0 0 / 0.35);
+}

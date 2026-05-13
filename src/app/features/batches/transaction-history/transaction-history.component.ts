@@ -12,38 +12,38 @@ import { formatDateTime } from '../../../utils/date.util';
   imports: [CommonModule, SpinnerComponent],
   template: `
     <div>
-      <h4 class="text-lg font-semibold text-gray-900 mb-4">Transaction History</h4>
+      <h4 class="text-lg font-semibold text-[var(--app-text-primary)] mb-4">Transaction History</h4>
       
       @if (loading()) {
         <div class="flex justify-center py-8">
           <app-spinner label="Loading history..."></app-spinner>
         </div>
       } @else if (transactions().length === 0) {
-        <div class="text-center py-8 text-gray-500">
+        <div class="text-center py-8 text-[var(--app-text-muted)]">
           <p>No transactions</p>
         </div>
       } @else {
         <div class="overflow-x-auto">
           <table class="w-full">
-            <thead class="bg-gray-100 border-b border-gray-200">
+            <thead class="bg-[var(--app-surface-muted)] border-b border-[var(--app-border)]">
               <tr>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Type</th>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Quantity</th>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Reason</th>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Date</th>
-                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">User</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Type</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Quantity</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Reason</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Date</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">User</th>
               </tr>
             </thead>
             <tbody>
               @for (txn of transactions(); track txn.id) {
-                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <tr class="border-b border-[var(--app-border)] hover:bg-[var(--app-surface-alt)]">
                   <td class="px-6 py-3 text-sm">
                     <span [class]="getTxnBadgeClass(txn.type)">{{ txn.type }}</span>
                   </td>
-                  <td class="px-6 py-3 text-sm text-gray-700">{{ txn.quantity }}</td>
-                  <td class="px-6 py-3 text-sm text-gray-700">{{ txn.reason || '-' }}</td>
-                  <td class="px-6 py-3 text-sm text-gray-700">{{ formatDateTime(txn.createdAt) }}</td>
-                  <td class="px-6 py-3 text-sm text-gray-700">{{ txn.userName || '-' }}</td>
+                  <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ txn.quantity }}</td>
+                  <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ txn.reason || '-' }}</td>
+                  <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ formatDateTime(txn.createdAt) }}</td>
+                  <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ txn.userName || '-' }}</td>
                 </tr>
               }
             </tbody>
@@ -85,9 +85,9 @@ export class TransactionHistoryComponent implements OnInit {
 
   getTxnBadgeClass(type: string): string {
     const classes: Record<string, string> = {
-      IN: 'bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold',
-      OUT: 'bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold',
-      RETURN: 'bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-semibold'
+      IN: 'bg-[var(--app-success-muted)] text-[var(--app-success-strong)] px-2 py-1 rounded text-xs font-semibold',
+      OUT: 'bg-[var(--app-info-muted)] text-[var(--app-info-strong)] px-2 py-1 rounded text-xs font-semibold',
+      RETURN: 'bg-[var(--app-warning-muted)] text-[var(--app-warning-strong)] px-2 py-1 rounded text-xs font-semibold'
     };
     return classes[type] || classes['IN'];
   }

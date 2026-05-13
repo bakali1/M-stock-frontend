@@ -15,7 +15,7 @@ import { BatchDetailComponent } from './batch-detail/batch-detail.component';
   template: `
     <div class="p-8">
       <div class="mb-8 flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-gray-900">Batch Details</h1>
+        <h1 class="text-3xl font-bold text-[var(--app-text-primary)]">Batch Details</h1>
         <app-button variant="ghost" (onClick)="goBack()">← Back</app-button>
       </div>
 
@@ -26,7 +26,7 @@ import { BatchDetailComponent } from './batch-detail/batch-detail.component';
       } @else if (batch()) {
         <app-batch-detail [batch]="batch()!"></app-batch-detail>
       } @else {
-        <div class="text-center py-8 text-gray-500">
+        <div class="text-center py-8 text-[var(--app-text-muted)]">
           <p>Batch not found</p>
         </div>
       }
@@ -68,4 +68,3 @@ export class BatchDetailPageComponent implements OnInit {
     this.router.navigate(['/batches']);
   }
 }
-

@@ -10,20 +10,20 @@ export function getAlertStatus(expirationDate: string): AlertStatus {
 
 export function getAlertColor(status: AlertStatus): string {
   const colors: Record<AlertStatus, string> = {
-    EXPIRED: 'bg-gray-100 border-gray-300 text-gray-900',
-    CRITICAL: 'bg-red-100 border-red-300 text-red-900',
-    ATTENTION: 'bg-orange-100 border-orange-300 text-orange-900',
-    NORMAL: 'bg-green-100 border-green-300 text-green-900'
+    EXPIRED: 'bg-[var(--app-neutral-muted)] border-[var(--app-border-strong)] text-[var(--app-text-primary)]',
+    CRITICAL: 'bg-[var(--app-danger-muted)] border-[var(--app-border-strong)] text-[var(--app-danger-strong)]',
+    ATTENTION: 'bg-[var(--app-warning-muted)] border-[var(--app-border-strong)] text-[var(--app-warning-strong)]',
+    NORMAL: 'bg-[var(--app-success-muted)] border-[var(--app-border-strong)] text-[var(--app-success-strong)]'
   };
   return colors[status];
 }
 
 export function getAlertBadgeColor(status: AlertStatus): string {
   const colors: Record<AlertStatus, string> = {
-    EXPIRED: 'bg-gray-500 text-white',
-    CRITICAL: 'bg-red-500 text-white',
-    ATTENTION: 'bg-orange-500 text-white',
-    NORMAL: 'bg-green-500 text-white'
+    EXPIRED: 'bg-[var(--app-neutral-strong)] text-[var(--app-surface)]',
+    CRITICAL: 'bg-[var(--app-danger)] text-white',
+    ATTENTION: 'bg-[var(--app-warning-strong)] text-[var(--app-surface)]',
+    NORMAL: 'bg-[var(--app-success-strong)] text-[var(--app-surface)]'
   };
   return colors[status];
 }

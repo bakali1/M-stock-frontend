@@ -16,40 +16,40 @@ import { TransactionHistoryComponent } from '../transaction-history/transaction-
         <div class="p-6">
           <div class="grid grid-cols-2 gap-6">
             <div>
-              <p class="text-sm text-gray-500 mb-1">Product</p>
-              <p class="text-lg font-semibold text-gray-900">{{ batch().productName }}</p>
+              <p class="text-sm text-[var(--app-text-muted)] mb-1">Product</p>
+              <p class="text-lg font-semibold text-[var(--app-text-primary)]">{{ batch().productName }}</p>
             </div>
             <div>
-              <p class="text-sm text-gray-500 mb-1">NSN Code</p>
-              <p class="text-lg font-semibold text-gray-900">{{ batch().nsnCode }}</p>
+              <p class="text-sm text-[var(--app-text-muted)] mb-1">NSN Code</p>
+              <p class="text-lg font-semibold text-[var(--app-text-primary)]">{{ batch().nsnCode }}</p>
             </div>
             <div>
-              <p class="text-sm text-gray-500 mb-1">Lot Number</p>
-              <p class="text-lg font-semibold text-gray-900">{{ batch().lotNumber }}</p>
+              <p class="text-sm text-[var(--app-text-muted)] mb-1">Lot Number</p>
+              <p class="text-lg font-semibold text-[var(--app-text-primary)]">{{ batch().lotNumber }}</p>
             </div>
             <div>
-              <p class="text-sm text-gray-500 mb-1">Current Quantity</p>
-              <p class="text-lg font-semibold text-gray-900">{{ batch().quantity }}</p>
+              <p class="text-sm text-[var(--app-text-muted)] mb-1">Current Quantity</p>
+              <p class="text-lg font-semibold text-[var(--app-text-primary)]">{{ batch().quantity }}</p>
             </div>
             <div>
-              <p class="text-sm text-gray-500 mb-1">Location</p>
-              <p class="text-lg font-semibold text-gray-900">{{ batch().location }}</p>
+              <p class="text-sm text-[var(--app-text-muted)] mb-1">Location</p>
+              <p class="text-lg font-semibold text-[var(--app-text-primary)]">{{ batch().location }}</p>
             </div>
             <div>
-              <p class="text-sm text-gray-500 mb-1">Status</p>
+              <p class="text-sm text-[var(--app-text-muted)] mb-1">Status</p>
               <span [class]="getStatusBadge(batch().status)">{{ batch().status }}</span>
             </div>
             <div>
-              <p class="text-sm text-gray-500 mb-1">Expiration</p>
-              <p class="text-lg font-semibold text-gray-900">{{ formatDate(batch().expirationDate) }}</p>
+              <p class="text-sm text-[var(--app-text-muted)] mb-1">Expiration</p>
+              <p class="text-lg font-semibold text-[var(--app-text-primary)]">{{ formatDate(batch().expirationDate) }}</p>
               <p [class]="'text-sm mt-1 ' + getAlertBadgeColor(getAlertStatus(batch().expirationDate))">
                 {{ formatExpiryStatus(batch().expirationDate) }}
               </p>
             </div>
             <div>
-              <p class="text-sm text-gray-500 mb-1">Days Until Expiration</p>
-              <p class="text-lg font-semibold text-gray-900">{{ batch().daysUntilExpiration }}</p>
-              <p class="text-sm mt-1">{{ formatExpiryStatus(batch().expirationDate) }}</p>
+              <p class="text-sm text-[var(--app-text-muted)] mb-1">Days Until Expiration</p>
+              <p class="text-lg font-semibold text-[var(--app-text-primary)]">{{ batch().daysUntilExpiration }}</p>
+              <p class="text-sm mt-1 text-[var(--app-text-secondary)]">{{ formatExpiryStatus(batch().expirationDate) }}</p>
             </div>
           </div>
         </div>
@@ -74,9 +74,9 @@ export class BatchDetailComponent {
 
   getStatusBadge(status: string): string {
     const classes: Record<string, string> = {
-      ACTIVE: 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold',
-      QUARANTINE: 'bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold',
-      RETIRED: 'bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold'
+      ACTIVE: 'bg-[var(--app-success-muted)] text-[var(--app-success-strong)] px-3 py-1 rounded-full text-sm font-semibold',
+      QUARANTINE: 'bg-[var(--app-danger-muted)] text-[var(--app-danger-strong)] px-3 py-1 rounded-full text-sm font-semibold',
+      RETIRED: 'bg-[var(--app-neutral-muted)] text-[var(--app-neutral-strong)] px-3 py-1 rounded-full text-sm font-semibold'
     };
     return classes[status] || classes['ACTIVE'];
   }

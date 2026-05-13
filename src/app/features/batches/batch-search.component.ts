@@ -25,16 +25,16 @@ import { getAlertStatus, getAlertBadgeColor } from '../../utils/alerts.util';
   ],
   template: `
     <div class="p-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-8">Batch Search</h1>
+      <h1 class="text-3xl font-bold text-[var(--app-text-primary)] mb-8">Batch Search</h1>
 
       <app-card>
-        <div class="p-6 border-b border-gray-200">
+        <div class="p-6 border-b border-[var(--app-border)]">
           <div class="flex gap-3">
             <input
               [formControl]="searchControl"
               type="text"
               placeholder="Search by lot number or NSN..."
-              class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="flex-1 px-4 py-2 border border-[var(--app-border-strong)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--app-brand)] bg-[var(--app-surface)] text-[var(--app-text-primary)]"
               aria-label="Search batches"
             />
             <app-button (onClick)="search()" [loading]="searching()">Search</app-button>
@@ -47,30 +47,30 @@ import { getAlertStatus, getAlertBadgeColor } from '../../utils/alerts.util';
               <app-spinner label="Loading results..."></app-spinner>
             </div>
           } @else if (batches().length === 0 && searched()) {
-            <div class="text-center py-8 text-gray-500">
+            <div class="text-center py-8 text-[var(--app-text-muted)]">
               <p>No batches found</p>
             </div>
           } @else if (batches().length > 0) {
             <div class="overflow-x-auto">
               <table class="w-full">
-                <thead class="bg-gray-100 border-b border-gray-200">
+                <thead class="bg-[var(--app-surface-muted)] border-b border-[var(--app-border)]">
                   <tr>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Product</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Lot Number</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">NSN Code</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Quantity</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Status</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Expiration</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Action</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Product</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Lot Number</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">NSN Code</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Quantity</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Status</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Expiration</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   @for (batch of batches(); track batch.id) {
-                    <tr class="border-b border-gray-200 hover:bg-gray-50">
-                      <td class="px-6 py-3 text-sm text-gray-700">{{ batch.productName }}</td>
-                      <td class="px-6 py-3 text-sm text-gray-700">{{ batch.lotNumber }}</td>
-                      <td class="px-6 py-3 text-sm text-gray-700">{{ batch.nsnCode }}</td>
-                      <td class="px-6 py-3 text-sm text-gray-700">{{ batch.quantity }}</td>
+                    <tr class="border-b border-[var(--app-border)] hover:bg-[var(--app-surface-alt)]">
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ batch.productName }}</td>
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ batch.lotNumber }}</td>
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ batch.nsnCode }}</td>
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ batch.quantity }}</td>
                       <td class="px-6 py-3 text-sm">
                         <span [class]="getStatusBadge(batch.status)">{{ batch.status }}</span>
                       </td>
@@ -82,7 +82,7 @@ import { getAlertStatus, getAlertBadgeColor } from '../../utils/alerts.util';
                       <td class="px-6 py-3 text-sm">
                         <button
                           (click)="openDetail(batch.id)"
-                          class="text-blue-600 hover:text-blue-800 font-medium"
+                          class="text-[var(--app-link)] hover:text-[var(--app-link-hover)] font-medium"
                         >
                           View
                         </button>
@@ -187,11 +187,10 @@ export class BatchSearchComponent implements OnInit {
 
   getStatusBadge(status: string): string {
     const classes: Record<string, string> = {
-      ACTIVE: 'bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold',
-      QUARANTINE: 'bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-semibold',
-      RETIRED: 'bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-semibold'
+      ACTIVE: 'bg-[var(--app-success-muted)] text-[var(--app-success-strong)] px-2 py-1 rounded text-xs font-semibold',
+      QUARANTINE: 'bg-[var(--app-danger-muted)] text-[var(--app-danger-strong)] px-2 py-1 rounded text-xs font-semibold',
+      RETIRED: 'bg-[var(--app-neutral-muted)] text-[var(--app-neutral-strong)] px-2 py-1 rounded text-xs font-semibold'
     };
     return classes[status] || classes['ACTIVE'];
   }
 }
-

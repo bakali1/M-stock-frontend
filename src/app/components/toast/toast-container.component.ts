@@ -26,10 +26,10 @@ export class ToastContainerComponent {
 
   getToastClasses(type: string): string {
     const typeClasses: Record<string, string> = {
-      success: 'bg-green-500 text-white',
-      error: 'bg-red-500 text-white',
-      info: 'bg-blue-500 text-white',
-      warning: 'bg-orange-500 text-white'
+      success: 'bg-[var(--app-success-strong)] text-[var(--app-surface)]',
+      error: 'bg-[var(--app-danger)] text-white',
+      info: 'bg-[var(--app-info-strong)] text-[var(--app-surface)]',
+      warning: 'bg-[var(--app-warning-strong)] text-[var(--app-surface)]'
     };
     return typeClasses[type] || typeClasses['info'];
   }

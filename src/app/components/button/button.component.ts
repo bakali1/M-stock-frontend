@@ -36,10 +36,10 @@ export class ButtonComponent {
     const baseClasses = 'font-medium rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed';
     
     const variants: Record<ButtonVariant, string> = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800',
-      secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 active:bg-gray-400',
-      danger: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800',
-      ghost: 'bg-transparent text-gray-700 hover:bg-gray-100 active:bg-gray-200'
+      primary: 'bg-[var(--app-brand)] text-[var(--app-on-brand)] hover:bg-[var(--app-brand-strong)] active:bg-[var(--app-brand-strong)]',
+      secondary: 'bg-[var(--app-surface-muted)] text-[var(--app-text-primary)] hover:bg-[var(--app-hover)] active:bg-[var(--app-hover-strong)]',
+      danger: 'bg-[var(--app-danger)] text-white hover:bg-[var(--app-danger-hover)] active:bg-[var(--app-danger-hover)]',
+      ghost: 'bg-transparent text-[var(--app-text-secondary)] hover:bg-[var(--app-hover)] active:bg-[var(--app-hover-strong)]'
     };
     
     const sizes: Record<ButtonSize, string> = {

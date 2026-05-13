@@ -13,25 +13,25 @@ import { Batch } from '../../../models/batch.model';
   imports: [CommonModule, SpinnerComponent, CardComponent],
   template: `
     <app-card>
-      <div class="p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Expiration Alerts</h3>
+      <div class="p-6 h-[calc(100vh-16rem)]">
+        <h3 class="text-lg font-semibold text-[var(--app-text-primary)] mb-4">Expiration Alerts</h3>
         
         @if (loading()) {
           <div class="flex justify-center py-8">
             <app-spinner label="Loading alerts..."></app-spinner>
           </div>
         } @else if (alerts().length === 0) {
-          <div class="text-center py-8 text-gray-500">
+          <div class="text-center py-8 text-[var(--app-text-muted)]">
             <p>No expiration alerts</p>
           </div>
         } @else {
-          <div class="space-y-3">
+          <div class="space-y-3 max-h-[calc(100vh-22rem)]">
             @for (batch of alerts(); track batch.id) {
               <div [class]="'p-3 rounded-lg border ' + getAlertClass(batch)">
                 <div class="flex justify-between items-start">
                   <div>
                     <p class="font-semibold text-sm">{{ batch.productName }}</p>
-                    <p class="text-xs text-gray-600">Lot: {{ batch.lotNumber }}</p>
+                    <p class="text-xs text-[var(--app-text-secondary)]">Lot: {{ batch.lotNumber }}</p>
                   </div>
                   <span [class]="'px-2 py-1 rounded text-xs font-semibold ' + getAlertBadgeColor(batch.expirationAlertLevel)">
                     {{ batch.expirationAlertLevel }}
@@ -79,10 +79,10 @@ export class ExpirationAlertsComponent implements OnInit {
   getAlertClass(batch: Batch): string {
     const status = batch.expirationAlertLevel;
     const classes: Record<string, string> = {
-      CRITICAL: 'bg-red-50 border-red-200',
-      ATTENTION: 'bg-orange-50 border-orange-200',
-      NORMAL: 'bg-green-50 border-green-200',
-      EXPIRED: 'bg-gray-50 border-gray-200'
+      CRITICAL: 'bg-[var(--app-danger-muted)] border-[var(--app-border)]',
+      ATTENTION: 'bg-[var(--app-warning-muted)] border-[var(--app-border)]',
+      NORMAL: 'bg-[var(--app-success-muted)] border-[var(--app-border)]',
+      EXPIRED: 'bg-[var(--app-neutral-muted)] border-[var(--app-border)]'
     };
     return classes[status];
   }
