@@ -133,7 +133,6 @@ export class BatchSearchComponent implements OnInit {
   }
 
   private setupSearch() {
-    console.log("text");
     this.searchControl.valueChanges
       .pipe(
         debounceTime(300),

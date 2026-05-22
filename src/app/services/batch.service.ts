@@ -11,7 +11,7 @@ export class BatchService {
   private api = inject(ApiService);
 
   search(query: string): Observable<Batch[]> {
-    return this.api.get<Batch[]>(`/batches/search?nsnCode=${encodeURIComponent(query)}&lotNumber=${encodeURIComponent(query)}`).pipe(
+    return this.api.get<Batch[]>(`/batches/search?key=${encodeURIComponent(query)}`).pipe(
       map(response => response.data)
     );
   }

@@ -4,12 +4,21 @@ import { catchError, map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { Transaction } from '../models/transaction.model';
 
+export interface TransactionRecordRequest {
+  type: 'IN' | 'OUT' | 'RETURN';
+  quantity: number;
+  batchId: number;
+  reason?: string;
+  userId?: number;
+  skipQuantityUpdate?: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
   private api = inject(ApiService);
-  record(transaction: Partial<Transaction>): Observable<Transaction> {
+  record(transaction: TransactionRecordRequest): Observable<Transaction> {
     return this.api.post<Transaction>('/transactions', transaction).pipe(
       map(response => response.data),
       catchError(error => {

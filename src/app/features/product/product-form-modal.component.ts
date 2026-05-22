@@ -65,19 +65,19 @@ import { Product } from '../../models/product.model';
 
         <div>
           <label for="product-par-level" class="block text-sm font-medium text-[var(--app-text-secondary)] mb-1">
-            Par Level <span class="text-[var(--app-danger)]">*</span>
+             Reorder ammount <span class="text-[var(--app-danger)]">*</span>
           </label>
           <input
             id="product-par-level"
-            formControlName="parLevel"
+            formControlName="minimumStockLevel"
             type="number"
             min="0"
             class="w-full px-4 py-2 border border-[var(--app-border-strong)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--app-brand)] bg-[var(--app-surface)] text-[var(--app-text-primary)]"
-            [attr.aria-invalid]="parLevelInvalid()"
-            [attr.aria-describedby]="parLevelInvalid() ? 'par-level-error' : null"
+            [attr.aria-invalid]="minimumStockLevelInvalid()"
+            [attr.aria-describedby]="minimumStockLevelInvalid() ? 'par-level-error' : null"
           />
-          @if (parLevelInvalid()) {
-            <p id="par-level-error" class="mt-1 text-sm text-[var(--app-danger)]" role="alert">Par level must be 0 or greater</p>
+          @if (minimumStockLevelInvalid()) {
+            <p id="par-level-error" class="mt-1 text-sm text-[var(--app-danger)]" role="alert"> Reorder ammount must be 0 or greater</p>
           }
         </div>
 
@@ -111,7 +111,7 @@ export class ProductFormModalComponent implements OnInit {
     name: ['', Validators.required],
     nsnCode: ['', Validators.required],
     description: [''],
-    parLevel: [0, Validators.min(0)],
+    minimumStockLevel: [0, Validators.min(0)],
     active: [true]
   });
 
@@ -125,8 +125,8 @@ export class ProductFormModalComponent implements OnInit {
     return c?.invalid && (c?.dirty || c?.touched);
   });
 
-  parLevelInvalid = computed(() => {
-    const c = this.form.get('parLevel');
+  minimumStockLevelInvalid = computed(() => {
+    const c = this.form.get('minimumStockLevel');
     return c?.invalid && (c?.dirty || c?.touched);
   });
 
@@ -138,7 +138,7 @@ export class ProductFormModalComponent implements OnInit {
         name: p.name,
         nsnCode: p.nsnCode,
         description: p.description,
-        parLevel: p.parLevel,
+        minimumStockLevel: p.minimumStockLevel,
         active: p.active
       });
     }
@@ -154,7 +154,7 @@ export class ProductFormModalComponent implements OnInit {
       name: val.name!,
       nsnCode: val.nsnCode!,
       description: val.description || '',
-      parLevel: val.parLevel ?? 0,
+      minimumStockLevel: val.minimumStockLevel ?? 0,
       active: val.active ?? true
     });
   }

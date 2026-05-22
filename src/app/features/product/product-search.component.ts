@@ -59,7 +59,7 @@ import { Product } from '../../models/product.model';
                     <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Name</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">NSN Code</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Description</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Par Level</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Reorder amount</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Status</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--app-text-primary)]">Actions</th>
                   </tr>
@@ -70,7 +70,7 @@ import { Product } from '../../models/product.model';
                       <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.name }}</td>
                       <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.nsnCode }}</td>
                       <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.description || '—' }}</td>
-                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.parLevel }}</td>
+                      <td class="px-6 py-3 text-sm text-[var(--app-text-secondary)]">{{ product.minimumStockLevel }}</td>
                       <td class="px-6 py-3 text-sm">
                         <span [class]="getActiveBadge(product.active)">
                           {{ product.active ? 'Active' : 'Inactive' }}

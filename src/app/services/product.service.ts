@@ -16,6 +16,12 @@ export class ProductService {
     );
   }
 
+  search(key: string): Observable<Product[]> {
+    return this.api.get<Product[]>(`/products/search?key=${encodeURIComponent(key)}`).pipe(
+      map(response => response.data)
+    );
+  }
+
   getById(id: number): Observable<Product> {
     return this.api.get<Product>(`/products/${id}`).pipe(
       map(response => response.data)

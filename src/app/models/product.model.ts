@@ -3,6 +3,6 @@ export interface Product {
   name: string;
   nsnCode: string;
   description: string;
-  parLevel: number;
+  minimumStockLevel: number;
   active: boolean;
 }
