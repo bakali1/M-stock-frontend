@@ -6,4 +6,5 @@ export interface User {
   email: string;
   role: UserRole;
   active: boolean;
+  lastLogin?: string | null;
 }
