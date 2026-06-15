@@ -13,8 +13,8 @@ import { ThemeService } from '../../../services/theme.service';
         <div class="flex justify-between items-center h-full">
         
         <div class="flex items-center gap-3">
-          <div class="w-8 h-8 bg-[var(--app-brand)] rounded-lg flex items-center justify-center">
-            <span class="text-[var(--app-on-brand)] font-bold text-lg">M</span>
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+            <img src="/medicine.ico" alt="Brand Logo" class="w-full h-full object-cover rounded-lg">
           </div>
 
           <h1 class="text-xl font-bold text-[var(--app-text-primary)]">M-Stock</h1>
