@@ -80,12 +80,6 @@ interface NavItem {
                 Account Settings
               </button>
               <button
-                class="w-full text-left px-4 py-3 hover:bg-[var(--app-hover)] transition"
-                (click)="openInfo()"
-              >
-                Info
-              </button>
-              <button
                 class="w-full text-left px-4 py-3 hover:bg-(--app-hover) transition text-[var(--app-danger)]"
                 (click)="logout()"
               >
