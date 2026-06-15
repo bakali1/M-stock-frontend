@@ -60,7 +60,7 @@ import { HeaderComponent } from '../../layouts/main-layout/header/header.compone
                      shadow-lg
                      font-black text-2xl"
             >
-              M
+              <img src="/medicine.ico" alt="Brand Logo" class="w-full h-full object-cover rounded-lg">
             </div>
 
             <h1 class="mt-5 text-3xl font-semibold tracking-tight">
