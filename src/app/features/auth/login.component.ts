@@ -55,7 +55,6 @@ import { HeaderComponent } from '../../layouts/main-layout/header/header.compone
             <div
               class="inline-flex items-center justify-center
                      w-14 h-14 rounded-2xl
-                     bg-[var(--app-brand)]
                      text-[var(--app-on-brand)]
                      shadow-lg
                      font-black text-2xl"
