@@ -25,7 +25,7 @@ interface NavItem {
         class="block px-4 py-3 rounded-lg text-[var(--app-text-secondary)] hover:bg-[var(--app-hover)] transition"
       >
         <span class="flex items-center gap-3">
-          <span class="text-lg">{{ item.icon }}</span>
+          <img [src]="item.icon" alt="" class="w-5 h-5" />
           <span class="font-medium">{{ item.label }}</span>
         </span>
       </a>
@@ -86,7 +86,7 @@ interface NavItem {
                 Info
               </button>
               <button
-                class="w-full text-left px-4 py-3 hover:bg-[var(--app-hover)] transition text-[var(--app-danger)]"
+                class="w-full text-left px-4 py-3 hover:bg-(--app-hover) transition text-[var(--app-danger)]"
                 (click)="logout()"
               >
                 Logout
@@ -106,11 +106,10 @@ interface NavItem {
 })
 export class SidebarComponent {
   navItems: NavItem[] = [
-    { label: 'Dashboard', path: '/dashboard', icon: '📊' },
-    { label: 'Product', path: '/product', icon: '🏷️' },
-    { label: 'Batches', path: '/batches', icon: '📦' },
-    { label: 'Stock Movement', path: '/stock-movement', icon: '🔄' },
-    
+    { label: 'Dashboard', path: '/dashboard', icon: '/dashboard.svg' },
+    { label: 'Product', path: '/product', icon: '/product.svg' },
+    { label: 'Batches', path: '/batches', icon: '/batch.svg' },
+    { label: 'Stock Movement', path: '/stock-movement', icon: '/stock-movment.svg' },
   ];
   private authService = inject(AuthService);
   private router = inject(Router);
