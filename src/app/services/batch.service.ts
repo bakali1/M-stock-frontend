@@ -39,4 +39,10 @@ export class BatchService {
       map(response => response.data)
     );
   }
+
+  quarantine(batchId: number, reason: string): Observable<Batch> {
+    return this.api.put<Batch>(`/batches/${batchId}/quarantine?reason=${encodeURIComponent(reason)}`, {}).pipe(
+      map(response => response.data)
+    );
+  }
 }

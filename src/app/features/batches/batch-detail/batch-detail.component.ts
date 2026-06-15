@@ -1,19 +1,21 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Batch } from '../../../models/batch.model';
 import { CardComponent } from '../../../components/card/card.component';
+import { ButtonComponent } from '../../../components/button/button.component';
 import { getAlertStatus, getAlertBadgeColor, formatExpiryStatus } from '../../../utils/alerts.util';
 import { formatDate } from '../../../utils/date.util';
 import { TransactionHistoryComponent } from '../transaction-history/transaction-history.component';
+import { QuarantineService } from '../../../services/quarantine.service';
 
 @Component({
   selector: 'app-batch-detail',
   standalone: true,
-  imports: [CommonModule, CardComponent, TransactionHistoryComponent],
+  imports: [CommonModule, CardComponent, ButtonComponent, TransactionHistoryComponent],
   template: `
     <div class="space-y-6">
       <app-card>
-        <div class="p-6">
+        <div class="p-6 space-y-4">
           <div class="grid grid-cols-2 gap-6">
             <div>
               <p class="text-sm text-[var(--app-text-muted)] mb-1">Product</p>
@@ -38,6 +40,9 @@ import { TransactionHistoryComponent } from '../transaction-history/transaction-
             <div>
               <p class="text-sm text-[var(--app-text-muted)] mb-1">Status</p>
               <span [class]="getStatusBadge(batch().status)">{{ batch().status }}</span>
+              @if (batch().status === 'QUARANTINE') {
+                <p class="text-xs text-[var(--app-warning-strong)] mt-1">This batch is quarantined and cannot be used</p>
+              }
             </div>
             <div>
               <p class="text-sm text-[var(--app-text-muted)] mb-1">Expiration</p>
@@ -60,17 +65,35 @@ import { TransactionHistoryComponent } from '../transaction-history/transaction-
           <app-transaction-history [batchId]="batch().id"></app-transaction-history>
         </div>
       </app-card>
+       @if (showActions() && !isQuarantineDisabled()) {
+         <!-- Action Buttons -->
+         <div class="flex gap-3">
+           <app-button variant="danger" (onClick)="onQuarantine()">
+             Quarantine Batch
+           </app-button>
+         </div>
+       }
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BatchDetailComponent {
   batch = input.required<Batch>();
+  showActions = input(true);
+  private quarantineService = inject(QuarantineService);
 
   getAlertStatus = getAlertStatus;
   getAlertBadgeColor = getAlertBadgeColor;
   formatExpiryStatus = formatExpiryStatus;
   formatDate = formatDate;
+
+  isQuarantineDisabled(): boolean {
+    return this.batch().status !== 'ACTIVE';
+  }
+
+  onQuarantine() {
+    this.quarantineService.requestQuarantine(this.batch());
+  }
 
   getStatusBadge(status: string): string {
     const classes: Record<string, string> = {

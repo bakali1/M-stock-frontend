@@ -107,9 +107,10 @@ interface NavItem {
 export class SidebarComponent {
   navItems: NavItem[] = [
     { label: 'Dashboard', path: '/dashboard', icon: '📊' },
+    { label: 'Product', path: '/product', icon: '🏷️' },
     { label: 'Batches', path: '/batches', icon: '📦' },
     { label: 'Stock Movement', path: '/stock-movement', icon: '🔄' },
-    { label: 'Product', path: '/product', icon: '🏷️' }
+    
   ];
   private authService = inject(AuthService);
   private router = inject(Router);

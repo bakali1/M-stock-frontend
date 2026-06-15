@@ -1,21 +1,24 @@
 import { Component, ChangeDetectionStrategy, input, output, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { QuarantineService } from '../../services/quarantine.service';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { BatchService } from '../../services/batch.service';
 import { ToastService } from '../../services/toast.service';
 import { Batch } from '../../models/batch.model';
 import { BatchDetailComponent } from './batch-detail/batch-detail.component';
+import { ModalComponentBatch } from "./batch-detail/batch-modal/batch-modal.component";
 
 @Component({
   selector: 'app-batch-detail-modal',
   standalone: true,
-  imports: [CommonModule, ModalComponent, SpinnerComponent, BatchDetailComponent],
+  imports: [CommonModule, SpinnerComponent, BatchDetailComponent, ModalComponentBatch],
   template: `
     @if (showModal()) {
-      <app-modal
+      <app-modal-batch
         [title]="'Batch Details'"
         [showSubmit]="false"
+        [batchInput]="batch()"
         (onClose)="onClose.emit()"
       >
         @if (loading()) {
@@ -23,9 +26,9 @@ import { BatchDetailComponent } from './batch-detail/batch-detail.component';
             <app-spinner label="Loading batch..."></app-spinner>
           </div>
         } @else if (batch()) {
-          <app-batch-detail [batch]="batch()!"></app-batch-detail>
+          <app-batch-detail [batch]="batch()!" [showActions]="false"></app-batch-detail>
         }
-      </app-modal>
+      </app-modal-batch>
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -36,6 +39,7 @@ export class BatchDetailModalComponent implements OnInit {
 
   private batchService = inject(BatchService);
   private toastService = inject(ToastService);
+  private quarantineService = inject(QuarantineService);
 
   batch = signal<Batch | null>(null);
   loading = signal(false);
@@ -58,5 +62,12 @@ export class BatchDetailModalComponent implements OnInit {
         this.loading.set(false);
       }
     });
+  }
+
+  requestQuarantine() {
+    const currentBatch = this.batch();
+    if (currentBatch) {
+      this.quarantineService.requestQuarantine(currentBatch);
+    }
   }
 }

@@ -1,14 +1,17 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit, signal, effect, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { finalize } from 'rxjs';
 import { BatchService } from '../../services/batch.service';
 import { ToastService } from '../../services/toast.service';
 import { CardComponent } from '../../components/card/card.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { BatchDetailModalComponent } from './batch-detail-modal.component';
+import { QuarantineService } from '../../services/quarantine.service';
+import { QuarantineModalComponent } from './batch-detail/quarantine-modal.component';
 import { Batch } from '../../models/batch.model';
 import { getAlertStatus, getAlertBadgeColor } from '../../utils/alerts.util';
 
@@ -21,7 +24,8 @@ import { getAlertStatus, getAlertBadgeColor } from '../../utils/alerts.util';
     CardComponent,
     ButtonComponent,
     SpinnerComponent,
-    BatchDetailModalComponent
+    BatchDetailModalComponent,
+    QuarantineModalComponent
   ],
   template: `
     <div class="p-8">
@@ -80,12 +84,23 @@ import { getAlertStatus, getAlertBadgeColor } from '../../utils/alerts.util';
                         </span>
                       </td>
                       <td class="px-6 py-3 text-sm">
-                        <button
-                          (click)="openDetail(batch.id)"
-                          class="text-[var(--app-link)] hover:text-[var(--app-link-hover)] font-medium"
-                        >
-                          View
-                        </button>
+                        <div class="flex items-center gap-3">
+                          <button
+                            (click)="openDetail(batch.id)"
+                            class="text-[var(--app-link)] hover:text-[var(--app-link-hover)] font-medium"
+                          >
+                            View
+                          </button>
+                          @if (batch.status === 'ACTIVE') {
+                            <app-button
+                              variant="danger"
+                              size="sm"
+                              (onClick)="requestQuarantine(batch)"
+                            >
+                              Quarantine
+                            </app-button>
+                          }
+                        </div>
                       </td>
                     </tr>
                   }
@@ -104,14 +119,25 @@ import { getAlertStatus, getAlertBadgeColor } from '../../utils/alerts.util';
         (onClose)="closeDetail()"
       ></app-batch-detail-modal>
     }
+
+    @if (showQuarantineModal() && quarantineTarget()) {
+      <app-quarantine-modal
+        [batch]="quarantineTarget()!"
+        [isSubmitting]="isQuarantineSubmitting()"
+        (onCancel)="closeQuarantineModal()"
+        (onConfirm)="quarantineBatch($event)"
+      ></app-quarantine-modal>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BatchSearchComponent implements OnInit {
   private batchService = inject(BatchService);
   private toastService = inject(ToastService);
+  private quarantineService = inject(QuarantineService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   searchControl = new FormControl('');
   batches = signal<Batch[]>([]);
@@ -119,9 +145,22 @@ export class BatchSearchComponent implements OnInit {
   searching = signal(false);
   searched = signal(false);
   selectedBatchId = signal<number | null>(null);
+  quarantineTarget = signal<Batch | null>(null);
+  showQuarantineModal = signal(false);
+  isQuarantineSubmitting = signal(false);
 
   getAlertStatus = getAlertStatus;
   getAlertBadgeColor = getAlertBadgeColor;
+
+  constructor() {
+    effect(() => {
+      const requestedBatch = this.quarantineService.quarantineRequested();
+      if (requestedBatch) {
+        this.openQuarantineModal(requestedBatch);
+        this.quarantineService.clearRequest();
+      }
+    });
+  }
 
   ngOnInit() {
     this.setupSearch();
@@ -182,6 +221,58 @@ export class BatchSearchComponent implements OnInit {
 
   closeDetail() {
     this.selectedBatchId.set(null);
+  }
+
+  requestQuarantine(batch: Batch) {
+    this.quarantineService.requestQuarantine(batch);
+  }
+
+  openQuarantineModal(batch: Batch) {
+    if (batch.status !== 'ACTIVE') {
+      return;
+    }
+
+    this.quarantineTarget.set(batch);
+    this.showQuarantineModal.set(true);
+    this.cdr.markForCheck();
+  }
+
+  closeQuarantineModal() {
+    this.showQuarantineModal.set(false);
+    this.quarantineTarget.set(null);
+  }
+
+  quarantineBatch(reason: string) {
+    const target = this.quarantineTarget();
+    if (!target || this.isQuarantineSubmitting()) {
+      return;
+    }
+
+    this.isQuarantineSubmitting.set(true);
+    this.batchService.quarantine(target.id, reason)
+      .pipe(
+        finalize(() => {
+          queueMicrotask(() => this.isQuarantineSubmitting.set(false));
+        })
+      )
+      .subscribe({
+        next: (updatedBatch: Batch) => {
+          this.batches.set(
+            this.batches().map(batch => batch.id === updatedBatch.id ? updatedBatch : batch)
+          );
+          this.quarantineTarget.set(updatedBatch);
+          this.closeQuarantineModal();
+          this.toastService.success('Batch quarantined successfully');
+          if (this.selectedBatchId() === updatedBatch.id) {
+            this.selectedBatchId.set(null);
+            queueMicrotask(() => this.selectedBatchId.set(updatedBatch.id));
+          }
+        },
+        error: (err: unknown) => {
+          const errorMessage = (err as { error?: { msg?: string } })?.error?.msg || 'Failed to quarantine batch';
+          this.toastService.error(errorMessage);
+        }
+      });
   }
 
   getStatusBadge(status: string): string {

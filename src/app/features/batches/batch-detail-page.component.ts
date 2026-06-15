@@ -1,12 +1,14 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit, signal, ChangeDetectorRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BatchService } from '../../services/batch.service';
 import { ToastService } from '../../services/toast.service';
+import { QuarantineService } from '../../services/quarantine.service';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { ButtonComponent } from '../../components/button/button.component';
 import { Batch } from '../../models/batch.model';
 import { BatchDetailComponent } from './batch-detail/batch-detail.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-batch-detail-page',
@@ -30,6 +32,7 @@ import { BatchDetailComponent } from './batch-detail/batch-detail.component';
           <p>Batch not found</p>
         </div>
       }
+
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -37,11 +40,13 @@ import { BatchDetailComponent } from './batch-detail/batch-detail.component';
 export class BatchDetailPageComponent implements OnInit {
   private batchService = inject(BatchService);
   private toastService = inject(ToastService);
+  private quarantineService = inject(QuarantineService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
-  batch = signal<Batch | null>(null);
   loading = signal(false);
+  batch = signal<Batch | null>(null);
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
