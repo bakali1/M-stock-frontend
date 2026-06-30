@@ -8,5 +8,5 @@ declare global {
 
 export const environment = {
   production: false,
-  apiUrl: globalThis.__ENV__?.API_URL ?? 'http://178.104.13.55:8080/api/v0'
+  apiUrl: globalThis.__ENV__?.API_URL ?? 'http://178.104.13.55:10000/api/v0'
 };
